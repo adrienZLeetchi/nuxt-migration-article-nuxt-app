@@ -17,6 +17,10 @@
 import { computed, defineComponent } from "vue";
 
 export default defineComponent({
+  model: {
+    event: "update:modelValue",
+    prop: "modelValue",
+  },
   props: ["modelValue"],
   emits: ["update:modelValue"],
   setup(props, { emit }) {
