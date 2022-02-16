@@ -15,26 +15,37 @@
   </main>
 </template>
 
-<script lang="ts" setup>
-import { computed, onMounted, reactive, ref } from "@vue/composition-api";
+<script lang="ts">
+import { computed, defineComponent, onMounted, reactive, ref } from "@vue/composition-api";
 import axios from "axios";
-// auto-include components in your <template>
 import FilterInput from "../components/FilterInput.vue";
 
-const list = reactive({ results: []});
+export default defineComponent({
+  components: { FilterInput },
+  setup() {
+    const list = reactive({ results: []});
 
-onMounted(async () => {
-  const request = await axios.get("https://rickandmortyapi.com/api/character");
-  Object.assign(list, request.data);
+    onMounted(async () => {
+      const request = await axios.get(
+        "https://rickandmortyapi.com/api/character"
+      );
+      Object.assign(list, request.data);
+    });
+
+    const filterValue = ref("");
+
+    const filteredList = computed(() =>
+      list.results
+        ? list.results.filter((character) =>
+            character.name.includes(filterValue.value)
+          )
+        : []
+    );
+
+    return {
+      filteredList,
+      filterValue,
+    };
+  },
 });
-
-const filterValue = ref("");
-
-const filteredList = computed(() =>
-  list.results
-    ? list.results.filter((character) =>
-        character.name.includes(filterValue.value)
-      )
-    : []
-);
 </script>
