@@ -16,11 +16,12 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, reactive, ref } from "vue";
+import { computed, onMounted, reactive, ref } from "@vue/composition-api";
 import axios from "axios";
+// auto-include components in your <template>
 import FilterInput from "../components/FilterInput.vue";
 
-const list = reactive<{ results?: { image: string; name: string }[] }>([]);
+const list = reactive({ results: []});
 
 onMounted(async () => {
   const request = await axios.get("https://rickandmortyapi.com/api/character");
