@@ -1,7 +1,7 @@
 <template>
   <div class="mb-3">
     <label for="exampleFormControlInput1" class="form-label">{{
-      t("FilterLabel")
+      $t("FilterLabel")
     }}</label>
     <input
       type="email"
@@ -13,22 +13,24 @@
   </div>
 </template>
 
-<script lang="ts" setup>
-import { computed } from "vue";
-import { useI18n } from "vue-i18n";
+<script lang="ts">
+import { computed, defineComponent } from "vue";
 
-const { t } = useI18n();
+export default defineComponent({
+  props: ["modelValue"],
+  emits: ["update:modelValue"],
+  setup(props, { emit }) {
+    // https://vuejs.org/guide/components/events.html#usage-with-v-model
+    const value = computed({
+      get() {
+        return props.modelValue;
+      },
+      set(value) {
+        emit("update:modelValue", value);
+      },
+    });
 
-const props = defineProps(["modelValue"]);
-const emit = defineEmits(["update:modelValue"]);
-
-// https://vuejs.org/guide/components/events.html#usage-with-v-model
-const value = computed({
-  get() {
-    return props.modelValue;
-  },
-  set(value) {
-    emit("update:modelValue", value);
+    return { value };
   },
 });
 </script>
