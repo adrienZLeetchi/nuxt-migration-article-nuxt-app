@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, reactive, ref } from "@vue/composition-api";
+import { computed, defineComponent, onMounted, reactive, ref } from "vue";
 import axios from "axios";
 import FilterInput from "../components/FilterInput.vue";
 
