@@ -23,7 +23,7 @@ import FilterInput from "../components/FilterInput.vue";
 export default defineComponent({
   components: { FilterInput },
   setup() {
-    const list = reactive({ results: []});
+    const list = reactive({ results: [] });
 
     onMounted(async () => {
       const request = await axios.get(
